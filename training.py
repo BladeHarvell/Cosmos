@@ -7,9 +7,9 @@ import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation, Dropout
-from tensorflow.keras.optimizers import SGD
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, Activation, Dropout
+from tensorflow.python.keras.optimizers import SGD
 
 lemmatizer = WordNetLemmatizer()
 
