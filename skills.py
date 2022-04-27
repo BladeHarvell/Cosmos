@@ -1,7 +1,7 @@
 def diagnostics():
     import cpuinfo, psutil
     from psutil import virtual_memory
-    speaker.runAndWait()
+    speaker()
     cpu = cpuinfo.get_cpu_info()['brand_raw']
     cpu = cpu.replace("(TM)", "")
     cpu = cpu.replace("(R)", "")
@@ -44,12 +44,13 @@ def diagnostics():
 '''
 
 ###############################################################################################
-import pyttsx3 as tts
+def speaker():
+    import pyttsx3 as tts
 
-speaker = tts.init()
-speaker.setProperty('rate', 134)
-voices = speaker.getProperty('voices')
-speaker.setProperty('voice', voices[1].id)
+    speaker = tts.init()
+    speaker.setProperty('rate', 134)
+    voices = speaker.getProperty('voices')
+    speaker.setProperty('voice', voices[1].id)
 
 
 l = []
@@ -61,8 +62,11 @@ l = str(l)
 l = l.replace("[", "")
 l = l.replace("]", "")
 l = l.replace("\'", "")
+l = l.replace(",", "")
+l = l.replace("__builtins__", "")
+l = l.replace("speaker", "")
 print(l)
-skills = open("skills_list.txt", "r+")
+skills = open("skills_list.txt", "w")
 skills.truncate(0)
 skills.write(l)
 skills.close

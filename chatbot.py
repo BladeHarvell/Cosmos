@@ -60,40 +60,14 @@ def get_response(intents_list, intents_json):
             break
     return result
 
-#Skills
-def diagnostics(message):
-    speaker.say("C P U report currently only works with an Intel C p u ")
-    speaker.runAndWait()
-    cpu = cpuinfo.get_cpu_info()['brand_raw']
-    cpu = cpu.replace("Intel", "")
-    cpu = cpu.replace("Core", "")
-    cpu = cpu.replace("(TM)", "")
-    cpu = cpu.replace("(R)", "")
-    cpu = cpu.replace("CPU", "")
-    cpu = cpu.replace("@", "With a clock speed at")
-    cpu = cpu.replace("GHz", " Giga hertz")
-    speaker.say("Systems Coming online, our Processor is an " + cpu)
-    speaker.runAndWait()
-    mem = virtual_memory()
-    speaker.say("We Have " + str(round(mem.total / (2**30))) + " Gigabytes of RAM")
-    speaker.runAndWait
-    hdd = psutil.disk_usage('/')
-    total = hdd.total / (2**30)
-    Used = hdd.used / (2**30)
-    Free = hdd.free / (2**30)
-    speaker.say("Total Storage Space " + str(round(total)) + " Gigabytes")
-    speaker.say("Used Storage Space " + str(round(Used)) + " Gigabytes")
-    speaker.say(("Free Storage Space " + str(round(Free)) + " Gigabytes"))
-
-    speaker.runAndWait()
-
 #Process Voice Request
 def process(tag, message):
-    if tag == "diagnostics":
-        diagnostics(message)
+    from skills import diagnostics
 
+import skills
 speaker.say("Systems Online")
 speaker.runAndWait()
+
 while True:
     try:
         with speech_recognition.Microphone() as mic:
@@ -108,6 +82,3 @@ while True:
 
     except speech_recognition.UnknownValueError:
         recognizer = speech_recognition.Recognizer()
-
-
-    
